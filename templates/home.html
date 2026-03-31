@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Home</title>
+  <link rel="stylesheet" href="../static/style.css">
+  <link href="../static/images/favicon.png" rel="icon" type="image/x-icon"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="home">
+  <div class="wrapper download-wrapper">
+    <h1 class="site-h1">Welcome to RMIT Library Home</h1>
+    <div class="details">
+    <p class="user-email">Hello, <span id="userEmail">user</span></p>
+    <button id="logoutButton" onclick="logout()">Logout</button>
+  </div>
+  <div id="admin-list" style="display: none;">
+    <button class="accordion">List of Registered users</button>
+    <div class="panel">
+      <ul class="user-list-ul">
+        {% for user in users %}
+        <li>{{ user.email }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+    <div class="search-wrap">
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for books.." title="Type in a book name">
+        <span id="close-search" class="close-search">x</span>
+        <ul id="myUL" style="display: none;">
+        <li><a href="../static/book1.pdf" download="book1.pdf">IT Infrastructure And Security</a></li>
+        <li><a href="../static/book2.pdf" download="book2.pdf">Database Concepts</a></li>
+        <li><a href="../static/book3.pdf" download="book3.pdf">Programming Fundamentals</a></li>
+        <li><a href="../static/book4.pdf" download="book4.pdf">Data Science</a></li>
+        </ul>
+    </div>
+    <h4 class="book-heading">Books Available: </h4>
+    <div class="book-wrap">
+        <div class="card" data-book="../static/book1.pdf">
+            <img src="https://cdn.editage.com/insights/editagecom/production/styles/card_image/public/YJ.jpg" alt="Avatar" style="width:100%">
+            <div class="card-container">
+              <h4><b>IT Infrastructure and Security</b></h4>
+              <p class="author">Prof. Xiang</p>
+              <p class="description">The IT industry is a rapidly changing one, needing constantly to adapt to new technology in order to make the best use of that technology.  This adaptation typically happens within a framework which we call the IT infrastructure.  This framework typically includes a wide diversity of hardware, networking and software solutions.  In order to better understand how all these pieces fit together, and to better manage such connections, it is useful to look at the architecture of this framework - in other words, how can we best design or assemble the pieces, so that they work together optimally.</p>
+            </div>
+          </div>
+          <div class="card" data-book="../static/book2.pdf">
+            <img src="https://cdn.editage.com/insights/editagecom/production/styles/card_image/public/YJ.jpg" alt="Avatar" style="width:100%">
+            <div class="card-container">
+              <h4><b>Database Concepts</b></h4>
+              <p class="author">Prof. Emily</p>
+              <p class="description">Welcome to (Practical) Database Concepts! This course will be delivered fully online and by accessing materials and resources here in Canvas, with weekly lectorial and practical classes. Databases and database technology are having a major impact on the growing use of computers. They play a critical role in almost all areas where computers are used.</p>
+            </div>
+          </div>
+          <div class="card" data-book="../static/book3.pdf">
+            <img src="https://cdn.editage.com/insights/editagecom/production/styles/card_image/public/YJ.jpg" alt="Avatar" style="width:100%">
+            <div class="card-container">
+              <h4><b>Programmming Fundamentals</b></h4>
+              <p class="author">Prof. Huang</p>
+              <p class="description">This course will be delivered through face-to-face/online lectorials, practicals, and by accessing the online content here in Canvas. In this course, you will learn basic programming skills, and also put them into practice in writing simple software applications. Throughout the whole course, you will learn and practise all the programming concepts in Python, but you will also learn some basic knowledge of Java at the end of the course.</p>
+            </div>
+          </div>
+          <div class="card" data-book="../static/book4.pdf">
+            <img src="https://cdn.editage.com/insights/editagecom/production/styles/card_image/public/YJ.jpg" alt="Avatar" style="width:100%">
+            <div class="card-container">
+              <h4><b>Data Science</b></h4>
+              <p class="author">Prof. Yongli</p>
+              <p class="description">The course gives you a set of practical skills for handling data that comes in a variety of formats and sizes, such as numeric and text data. These skills cover the data analysis lifecycle from initial access and acquisition, modeling, transformation, integration, querying, application of statistical learning and data mining methods, and presentation of results.</p>
+            </div>
+          </div>
+    </div>
+  </div>
+  <div class="popup-wrapper" style="display: none;">
+    <div id="popup" class="white-popup">
+        <span class="close-popup">×</span>
+        <h2 class="team-member-name">Book Name</h2>
+        <h3 class="team-member-job-title">Book Author</h3>
+        <div class="team-img-cont">
+          <img src="https://cdn.editage.com/insights/editagecom/production/styles/card_image/public/YJ.jpg" alt="Image">
+          <div class="team-member-description">
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages</p>
+          </div>
+        </div>
+        <button class="download-btn" id="downloadBtn">Download</button>
+      </div>
+  </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script src="../static/script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log("Hello")
+  function parseJwt(token) {
+      try {
+          const base64Url = token.split('.')[1];
+          const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+          const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+              return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+          }).join(''));
+          return JSON.parse(jsonPayload);
+      } catch (e) {
+          return null;
+      }
+  }
+
+  function displayUserEmail() {
+      const accessToken = localStorage.getItem('accessToken');
+      console.log(accessToken)
+      if (accessToken) {
+          const decodedToken = parseJwt(accessToken);
+          console.log(decodedToken)
+          if (decodedToken && decodedToken.sub) {
+              document.getElementById('userEmail').textContent = decodedToken.sub;
+              if (decodedToken.sub == 'omkarlad2023@gmail.com') {
+                document.getElementById('admin-list').style.display = 'block';
+              }
+          }
+      }
+  }
+
+  displayUserEmail();
+  
+  function logout() {
+    localStorage.removeItem('accessToken');
+    window.location.href = '/'; // Redirect to the login page
+  }
+});
+    </script>
+</body>
+</html>

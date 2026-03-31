@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Login & Signup Form</title>
+  <link rel="stylesheet" href="../static/style.css">
+  <link href="../static/images/favicon.png" rel="icon" type="image/x-icon"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <div class="wrapper">
+    <h1 class="site-h1">
+      <img src="../static/images/logo.png" width="30">
+      WELCOME TO RMIT LIBRARY</h1>
+    <div class="title-text">
+      <div class="title login">Login Form</div>
+      <div class="title signup">Signup Form</div>
+    </div>
+    <div class="form-container">
+      <div class="slide-controls">
+        <input type="radio" name="slide" id="login" checked>
+        <input type="radio" name="slide" id="signup">
+        <label for="login" class="slide login">Login</label>
+        <label for="signup" class="slide signup">Signup</label>
+        <div class="slider-tab"></div>
+      </div>
+      <div class="form-inner">
+        <form id="loginForm" class="login" method="post" action="/login">
+          <div class="field">
+            <input type="text" id="loginEmail" name="email" placeholder="Email Address" required>
+            <span class="error-message" id="loginEmailError"></span>
+          </div>
+          <div class="field">
+            <input type="password" id="loginPassword" name="password" placeholder="Password" required>
+            <span class="error-message" id="loginPasswordError"></span>
+          </div>
+          <div class="pass-link"><a href="#" id="forgotPasswordLink">Forgot password?</a></div>
+          <div class="field btn">
+            <div class="btn-layer"></div>
+            <input type="submit" value="Login">
+          </div>
+          <div class="signup-link">Not a member? <a href="#">Signup now</a></div>
+        </form>
+        <div id="loginSuccess" class="success-message"></div>
+        <form id="signupForm" class="signup" method="post" action="/signup">
+          <div class="field">
+            <input type="text" id="signupEmail" name="email" placeholder="Email Address" required>
+            <span class="error-message" id="signupEmailError"></span>
+          </div>
+          <div class="field">
+            <input type="password" id="signupPassword" name="password" placeholder="Password" required>
+            <span class="error-message" id="signupPasswordError"></span>
+            <div id="password-strength">
+              <div id="password-strength-wrap">
+                <div id="password-strength-bar"></div>
+                <div id="password-strength-feedback"></div>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <input type="password" id="signupConfirmPassword" name="confirm_password" placeholder="Confirm password" required>
+            <span class="error-message" id="signupConfirmPasswordError"></span>
+          </div>
+          <div class="field btn">
+            <div class="btn-layer"></div>
+            <input type="submit" value="Signup">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="forgot-password-modal" id="forgotPasswordModal">
+    <div class="modal-content">
+      <span class="close-button" id="closeForgotPasswordModal">&times;</span>
+      <h2>Forgot Password</h2>
+      <form id="forgotPasswordForm" method="post" action="/forgot-password">
+        <div class="field">
+          <input type="email" id="forgotPasswordEmail" name="email" placeholder="Enter your email" required>
+        </div>
+        <div class="forgot-password-success" id="forgotPasswordSuccess"></div>
+        <div class="forgot-password-error" id="forgotPasswordError"></div>
+        <div class="field btn">
+          <div class="btn-layer"></div>
+          <input type="submit" value="Submit">
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="otp-modal" id="otpModal">
+    <div class="modal-content">
+      <span class="close-button" id="closeOtpModal">&times;</span>
+      <h2>Enter OTP</h2>
+      <form id="otpForm" method="post" action="/verify-otp">
+        <div class="field">
+          <input type="text" id="otpInput" name="otp" placeholder="Enter 6-digit OTP" required>
+        </div>
+        <div class="otp-error" id="otpError"></div>
+        <div class="field btn">
+          <div class="btn-layer"></div>
+          <input type="submit" value="Verify OTP">
+        </div>
+        <div class="resend-otp">
+          <button type="button" id="resendOtpButton">Resend OTP</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src="../static/script.js"></script>
+</body>
+</html>
